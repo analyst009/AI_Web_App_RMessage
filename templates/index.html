@@ -1,26 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Web Interface</title>
-  <!-- Link to CSS -->
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Photo Upload System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-  <h1>Welcome to the AI Web Interface</h1>
-  <div class="container">
-  <div class="chat-window">
-    <div id="chat-output"></div>
-    <input type="text" id="user-input" placeholder="Type your message here..." />
-    <button id="send-button">Send</button>
-  </div>
-</div>
+    <div class="container">
+        <header>
+            <h1>🐾 Animal Photo Upload System</h1>
+            <p>Upload and manage photos of cats, dogs, and elephants</p>
+        </header>
 
-  <!-- Link to JavaScript -->
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h2>📸 Upload Photo</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="animalType">Select Animal Type:</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="animal_type" value="cat" required>
+                                <span class="radio-custom">🐱 Cat</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="animal_type" value="dog" required>
+                                <span class="radio-custom">🐕 Dog</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="animal_type" value="elephant" required>
+                                <span class="radio-custom">🐘 Elephant</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo">Select Photo:</label>
+                        <div class="file-upload">
+                            <input type="file" id="photo" name="photo" accept="image/*" required>
+                            <label for="photo" class="file-upload-label">
+                                <span class="upload-icon">📁</span>
+                                <span class="upload-text">Choose a file or drag it here</span>
+                            </label>
+                        </div>
+                        <div id="fileInfo" class="file-info" style="display: none;"></div>
+                    </div>
+
+                    <button type="submit" class="upload-btn">
+                        <span class="btn-icon">📤</span>
+                        Upload Photo
+                    </button>
+                </form>
+
+                <div id="uploadStatus" class="status-message" style="display: none;"></div>
+            </section>
+
+            <!-- List Section -->
+            <section class="list-section">
+                <div class="list-header">
+                    <h2>📋 Uploaded Photos</h2>
+                    <div class="list-buttons">
+                        <button id="refreshBtn" class="refresh-btn">
+                            <span class="btn-icon">🔄</span>
+                            Refresh List
+                        </button>
+                        <button id="deleteAllBtn" class="delete-all-btn">
+                            <span class="btn-icon">🗑️</span>
+                            Delete All Photos
+                        </button>
+                    </div>
+                </div>
+
+                <div id="photosList" class="photos-grid">
+                    <div class="loading">Loading photos...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
